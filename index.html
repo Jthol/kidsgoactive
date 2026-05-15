@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -99,6 +100,18 @@
     .cal-day.today { background: var(--green); color: #fff; font-weight: 500; }
     .cal-day.today::after { background: #fff; }
     .cal-day.muted { color: var(--text-tertiary); }
+
+    /* MAP */
+    .map-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .map-filter-btn { border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 999px; padding: 9px 16px; font-size: 13px; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+    .map-filter-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
+    #park-map { width: 100%; min-height: 360px; border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .park-entry-tag { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px; font-size: 11px; background: var(--bg-secondary); color: var(--text-secondary); margin-left: 0.5rem; }
+    .park-list-item { display: flex; flex-direction: column; gap: 6px; padding: 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); transition: border-color 0.15s; }
+    .park-list-item:hover { border-color: var(--border-secondary); }
+    .park-list-item strong { font-size: 14px; }
+    .park-status { color: var(--text-tertiary); font-size: 12px; }
+    .map-status { color: var(--text-tertiary); font-size: 13px; margin-left: auto; }
 
     /* MAP */
     .map-placeholder { background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--text-secondary); font-size: 14px; }
@@ -223,40 +236,16 @@
     <div class="section-title"><i class="ti ti-map" aria-hidden="true"></i> Parks near you</div>
     <a href="#" class="see-all">View map <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
   </div>
-  <div class="map-placeholder">
-    <i class="ti ti-map-2" aria-hidden="true"></i>
-    <span>Interactive park map</span>
-    <span style="font-size: 12px; color: var(--text-tertiary);">Coming soon — connect a map provider to enable</span>
+  <div class="map-controls">
+    <div>
+      <button class="map-filter-btn active" data-filter="all">All</button>
+      <button class="map-filter-btn" data-filter="free">Free</button>
+      <button class="map-filter-btn" data-filter="paid">Paid</button>
+    </div>
+    <span class="map-status">Loading park data…</span>
   </div>
-  <div class="park-list">
-    <div class="park-item">
-      <div class="park-icon"><i class="ti ti-trees" aria-hidden="true"></i></div>
-      <div class="park-info">
-        <div class="park-name">Hawk Island County Park</div>
-        <div class="park-dist">2.1 mi away · 3 upcoming events</div>
-        <div class="park-tags"><span class="park-tag">Splash pad</span><span class="park-tag">Trails</span><span class="park-tag">Playground</span></div>
-      </div>
-      <i class="ti ti-chevron-right" style="color: var(--text-tertiary); font-size: 16px;" aria-hidden="true"></i>
-    </div>
-    <div class="park-item">
-      <div class="park-icon"><i class="ti ti-trees" aria-hidden="true"></i></div>
-      <div class="park-info">
-        <div class="park-name">Patriarche Park</div>
-        <div class="park-dist">3.4 mi away · 1 upcoming event</div>
-        <div class="park-tags"><span class="park-tag">Soccer fields</span><span class="park-tag">Picnic</span></div>
-      </div>
-      <i class="ti ti-chevron-right" style="color: var(--text-tertiary); font-size: 16px;" aria-hidden="true"></i>
-    </div>
-    <div class="park-item">
-      <div class="park-icon"><i class="ti ti-trees" aria-hidden="true"></i></div>
-      <div class="park-info">
-        <div class="park-name">Fenner Nature Center</div>
-        <div class="park-dist">4.0 mi away · 2 upcoming events</div>
-        <div class="park-tags"><span class="park-tag">Nature trails</span><span class="park-tag">Programs</span></div>
-      </div>
-      <i class="ti ti-chevron-right" style="color: var(--text-tertiary); font-size: 16px;" aria-hidden="true"></i>
-    </div>
-  </div>
+  <div id="park-map"></div>
+  <div class="park-list"></div>
 </div>
 
 <footer>
@@ -264,6 +253,105 @@
   <a href="#">Submit an event</a> ·
   <a href="#">Contact</a>
 </footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+  const parkMap = L.map('park-map', { scrollWheelZoom: false }).setView([41.88, -88.09], 10);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18
+  }).addTo(parkMap);
+
+  const listContainer = document.querySelector('.park-list');
+  const statusLabel = document.querySelector('.map-status');
+  const filterButtons = document.querySelectorAll('.map-filter-btn');
+  let parkMarkers = [];
+  let parks = [];
+
+  const entryColor = (entry) => entry === 'paid' ? '#D23F4F' : '#1D9E75';
+
+  const createParkMarker = (park) => {
+    const marker = L.circleMarker([park.lat, park.lon], {
+      radius: 8,
+      fillColor: entryColor(park.entry),
+      color: '#fff',
+      weight: 1.5,
+      fillOpacity: 0.9
+    });
+
+    marker.bindPopup(`
+      <strong>${park.name}</strong><br />
+      ${park.address}<br />
+      <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em>
+    `);
+
+    marker.addTo(parkMap);
+    parkMarkers.push({ marker, park });
+  };
+
+  const updateParkList = (visibleParks) => {
+    listContainer.innerHTML = visibleParks.map((park) => {
+      return `
+        <div class="park-list-item">
+          <strong>${park.name}</strong>
+          <div class="park-status">${park.address} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</div>
+        </div>
+      `;
+    }).join('');
+  };
+
+  const applyFilter = (filter) => {
+    const visibleParks = parks.filter((park) => {
+      if (filter === 'all') return true;
+      return park.entry === filter;
+    });
+
+    parkMarkers.forEach(({ marker, park }) => {
+      const visible = filter === 'all' || park.entry === filter;
+      if (visible) marker.addTo(parkMap);
+      else parkMap.removeLayer(marker);
+    });
+
+    updateParkList(visibleParks.slice(0, 20));
+    statusLabel.textContent = `Showing ${visibleParks.length} parks (${filter === 'all' ? 'all' : filter})`;
+    if (visibleParks.length && filter !== 'all') {
+      const bounds = L.featureGroup(parkMarkers.filter(({ park }) => visibleParks.includes(park)).map(({ marker }) => marker)).getBounds();
+      if (bounds.isValid()) parkMap.fitBounds(bounds, { padding: [40, 40] });
+    }
+  };
+
+  const loadParkData = async () => {
+    try {
+      const response = await fetch('dupage-parks.json');
+      if (!response.ok) throw new Error('Unable to load park data.');
+      parks = await response.json();
+      parks = parks.filter((park) => park.lat && park.lon && park.entry);
+
+      if (!parks.length) {
+        statusLabel.textContent = 'No park locations available in the data file.';
+        return;
+      }
+
+      parks.forEach(createParkMarker);
+      applyFilter('all');
+      const bounds = L.featureGroup(parkMarkers.map((item) => item.marker)).getBounds();
+      if (bounds.isValid()) parkMap.fitBounds(bounds, { padding: [40, 40] });
+    } catch (error) {
+      console.error(error);
+      statusLabel.textContent = 'Failed to load park data. Run this page from a local server to allow file loading.';
+    }
+  };
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+      applyFilter(button.dataset.filter);
+    });
+  });
+
+  loadParkData();
+</script>
 
 </body>
 </html>
