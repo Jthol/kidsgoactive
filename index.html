@@ -426,7 +426,7 @@
     const visibleParks = parks.filter((park) => {
       const entryMatch = entryFilter === 'all' || park.entry === entryFilter;
       const regionMatch = regionFilter === 'all' || park.region === regionFilter;
-      const kidMatch = kidFilter === 'all' || park.kidFavorite;
+      const kidMatch = kidFilter === 'all' || Boolean(park.kidFavorite);
       return entryMatch && regionMatch && kidMatch;
     });
 
@@ -458,7 +458,7 @@
       parks.forEach((park) => {
         park.town = parseTownFromAddress(park.address, park.operator);
         park.displayAddress = displayAddress(park);
-        park.kidFavorite = park.kidFavorite === true;
+        park.kidFavorite = park.kidFavorite === true || park.kidFavorite === 'true';
       });
 
       const lats = parks.map((park) => park.lat);
