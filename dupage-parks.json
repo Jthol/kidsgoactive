@@ -1681,8 +1681,19 @@
     "kidFavorite": true
   },
   {
+    "name": "Sensory Garden Playground",
+    "address": "2751 International Dr, Lisle, IL 60532",
+    "lat": 41.7948,
+    "lon": -88.0835,
+    "entry": "free",
+    "parking": "parking available",
+    "website": null,
+    "operator": "Lisle Park District",
+    "kidFavorite": true
+  },
+  {
     "name": "Bison's Bluff Nature Playground",
-    "address": "1111 E Schaumburg Road, Naperville, IL, 60565",
+    "address": "1111 E Schaumburg Road, Schaumburg, IL 60194",
     "lat": 41.7965,
     "lon": -88.1155,
     "entry": "free",
@@ -2113,7 +2124,7 @@
   },
   {
     "name": "Camera Park",
-    "address": "DuPage County, IL",
+    "address": "101 E Fullerton Ave, Glendale Heights, IL 60139",
     "lat": 41.9149982,
     "lon": -88.0862614,
     "entry": "free",
@@ -9095,7 +9106,7 @@
   },
   {
     "name": "Maryknoll Park",
-    "address": "845 Pershing Avenue, Glen Ellyn, IL",
+    "address": "845 Pershing Ave Unit 1, Glen Ellyn, IL 60137",
     "lat": 41.856208,
     "lon": -88.0502812,
     "entry": "free",

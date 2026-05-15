@@ -107,6 +107,8 @@
     .park-list-item:hover { border-color: var(--border-secondary); }
     .park-list-item strong { font-size: 14px; }
     .park-status { color: var(--text-tertiary); font-size: 12px; }
+    .directions-copy-btn { display: inline-flex; align-items: center; justify-content: center; margin-top: 0.5rem; background: var(--green-light); color: var(--green-dark); border: none; border-radius: 999px; padding: 6px 10px; font-size: 12px; cursor: pointer; transition: background 0.15s, transform 0.15s; }
+    .directions-copy-btn:hover { background: #cde9db; transform: translateY(-1px); }
     .map-status { color: var(--text-tertiary); font-size: 13px; margin-left: auto; }
 
     /* MAP */
@@ -169,44 +171,7 @@
   <p>Browse local parks, sports, classes, and events — all in one place.</p>
 </div>
 
-<div class="section" id="events">
-  <div class="section-header">
-    <div class="section-title"><i class="ti ti-calendar-event" aria-hidden="true"></i> This week's events</div>
-    <a href="#" class="see-all">See all <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
-  </div>
-  <div class="cards">
-    <div class="card">
-      <span class="card-tag tag-sport">Sport</span>
-      <h3>Youth Soccer Clinic</h3>
-      <div class="card-age">Ages 6–10</div>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sat, May 17 · 9am</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Patriarche Park</div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-art">Arts</span>
-      <h3>Outdoor Painting Class</h3>
-      <div class="card-age">Ages 5–12</div>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sun, May 18 · 11am</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Fenner Nature Center</div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Nature</span>
-      <h3>Bug &amp; Butterfly Walk</h3>
-      <div class="card-age">Ages 4–9</div>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sat, May 17 · 10am</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Hawk Island Park</div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-stem">STEM</span>
-      <h3>Kids' Coding Camp</h3>
-      <div class="card-age">Ages 8–13</div>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Mon–Fri, May 19–23</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Library of Michigan</div>
-    </div>
-  </div>
-</div>
 
-<div class="divider"></div>
 
 <div class="section" id="parks">
   <div class="section-header">
@@ -308,6 +273,35 @@
 
 <div class="divider"></div>
 
+<div class="section" id="water-activities">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-droplet" aria-hidden="true"></i> Water Activities</div>
+    <a href="#" class="see-all">Explore more <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="card-tag tag-nature">Water</span>
+      <h3>Spray Pad Splash</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Open daily · 10am–7pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Lisle Community Park</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Water</span>
+      <h3>Lakefront Paddle Rentals</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Fri–Sun · 9am–5pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Ackerman Park</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Water</span>
+      <h3>Family Beach Day</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays · 11am–4pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Hidden Lake Park</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <div class="section">
   <div class="section-header">
     <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> May 2026</div>
@@ -319,6 +313,20 @@
     <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day today">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day has-event">17</div>
     <div class="cal-day has-event">18</div><div class="cal-day has-event">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day has-event">23</div><div class="cal-day">24</div>
     <div class="cal-day">25</div><div class="cal-day has-event">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day has-event">31</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section" id="events">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-calendar-event" aria-hidden="true"></i> This week's events</div>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h3>Coming Soon</h3>
+      <p style="color: var(--text-secondary);">New family-friendly events are on the way. Check back soon for updated programming and local weekend activities.</p>
+    </div>
   </div>
 </div>
 
@@ -404,6 +412,7 @@
       <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em>
       ${park.kidFavorite ? '<div style="margin-top:4px;color:#1D9E75;font-weight:600;">Kid favorite</div>' : ''}
       <br /><small>${park.town}</small>
+      <button class="directions-copy-btn" data-address="${park.displayAddress}">Copy address</button>
     `);
 
     marker.addTo(parkMap);
@@ -507,6 +516,21 @@
       activeKidFilter = button.dataset.filter;
       applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
     });
+  });
+
+  document.addEventListener('click', async (event) => {
+    const button = event.target.closest('.directions-copy-btn');
+    if (!button) return;
+    const address = button.dataset.address || '';
+    if (!address) return;
+
+    try {
+      await navigator.clipboard.writeText(address);
+      button.textContent = 'Copied!';
+      setTimeout(() => { button.textContent = 'Copy address'; }, 1400);
+    } catch (error) {
+      window.prompt('Copy this address:', address);
+    }
   });
 
   loadParkData();
