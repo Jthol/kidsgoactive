@@ -194,6 +194,7 @@
     <div>
       <button class="map-filter-btn kid-filter-btn active" data-filter="all">All parks</button>
       <button class="map-filter-btn kid-filter-btn" data-filter="favorites">Kid favorites</button>
+      <button class="map-filter-btn kid-filter-btn" data-filter="toddler">Toddler favorites</button>
     </div>
     <span class="map-status">Loading park data…</span>
   </div>
@@ -411,6 +412,7 @@
       ${park.displayAddress}<br />
       <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em>
       ${park.kidFavorite ? '<div style="margin-top:4px;color:#1D9E75;font-weight:600;">Kid favorite</div>' : ''}
+      ${park.toddlerFavorite ? '<div style="margin-top:4px;color:#1D9E75;font-weight:600;">Toddler favorite</div>' : ''}
       <br /><small>${park.town}</small>
       <button class="directions-copy-btn" data-address="${park.displayAddress}">Copy address</button>
     `);
@@ -420,16 +422,17 @@
   };
 
   const updateParkList = (visibleParks, kidFilter) => {
-    if (kidFilter !== 'favorites') {
+    if (kidFilter !== 'favorites' && kidFilter !== 'toddler') {
       listContainer.innerHTML = '';
       return;
     }
 
     listContainer.innerHTML = visibleParks.map((park) => {
+      const tag = park.toddlerFavorite ? 'Toddler favorite' : park.kidFavorite ? 'Kid favorite' : '';
       return `
         <div class="park-list-item">
           <strong>${park.name}</strong>
-          ${park.kidFavorite ? '<span class="park-entry-tag">Kid favorite</span>' : ''}
+          ${tag ? `<span class="park-entry-tag">${tag}</span>` : ''}
           <div class="park-status">${park.displayAddress} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'} · ${regionLabel(park.region)}</div>
         </div>
       `;
@@ -440,8 +443,10 @@
     const visibleParks = parks.filter((park) => {
       const entryMatch = entryFilter === 'all' || park.entry === entryFilter;
       const regionMatch = regionFilter === 'all' || park.region === regionFilter;
-      const kidMatch = kidFilter === 'all' || Boolean(park.kidFavorite);
-      return entryMatch && regionMatch && kidMatch;
+      const favoriteMatch = kidFilter === 'all'
+        || (kidFilter === 'favorites' && Boolean(park.kidFavorite))
+        || (kidFilter === 'toddler' && Boolean(park.toddlerFavorite));
+      return entryMatch && regionMatch && favoriteMatch;
     });
 
     parkMarkers.forEach(({ marker, park }) => {
@@ -451,7 +456,7 @@
     });
 
     updateParkList(visibleParks.slice(0, 20), kidFilter);
-    const kidLabel = kidFilter === 'all' ? 'all parks' : 'kid favorites';
+    const kidLabel = kidFilter === 'all' ? 'all parks' : kidFilter === 'favorites' ? 'kid favorites' : 'toddler favorites';
     statusLabel.textContent = visibleParks.length
       ? `Showing ${visibleParks.length} parks (${entryFilter === 'all' ? 'all' : entryFilter}, ${regionLabel(regionFilter)}, ${kidLabel})`
       : 'No parks match this filter.';
@@ -473,6 +478,7 @@
         park.town = parseTownFromAddress(park.address, park.operator);
         park.displayAddress = displayAddress(park);
         park.kidFavorite = park.kidFavorite === true || park.kidFavorite === 'true';
+        park.toddlerFavorite = park.toddlerFavorite === true || park.toddlerFavorite === 'true';
       });
 
       const lats = parks.map((park) => park.lat);

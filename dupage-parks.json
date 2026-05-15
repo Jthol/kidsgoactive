@@ -1157,7 +1157,8 @@
     "entry": "free",
     "parking": "parking available",
     "website": "https://www.csparks.org/parks/bierman-park/",
-    "operator": "Carol Stream Park District"
+    "operator": "Carol Stream Park District",
+    "toddlerFavorite": true
   },
   {
     "name": "Big Ball Park",
@@ -2795,13 +2796,14 @@
   },
   {
     "name": "Circle Park",
-    "address": "DuPage County, IL",
+    "address": "163 Fairfield Way, Bloomingdale, IL 60108",
     "lat": 41.9500286,
     "lon": -88.072292,
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": null
+    "operator": null,
+    "toddlerFavorite": true
   },
   {
     "name": "Citizens Parks",
@@ -7556,13 +7558,14 @@
   },
   {
     "name": "Kelly Park",
-    "address": "DuPage County, IL",
-    "lat": 41.6278382,
-    "lon": -88.2067939,
+    "address": "1100 S Main St, Wheaton, IL 60189",
+    "lat": 41.8575,
+    "lon": -88.0955,
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": null
+    "operator": null,
+    "toddlerFavorite": true
   },
   {
     "name": "Kemmerling Park",
@@ -10887,13 +10890,14 @@
   },
   {
     "name": "Panfish Park",
-    "address": "DuPage County, IL",
-    "lat": 41.856648,
-    "lon": -88.0581466,
+    "address": "620 Wilson Ave, Glen Ellyn, IL 60137",
+    "lat": 41.8520,
+    "lon": -88.0810,
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": "Village of Glen Ellyn"
+    "operator": "Village of Glen Ellyn",
+    "toddlerFavorite": true
   },
   {
     "name": "Panton Mill Park",
@@ -13927,13 +13931,14 @@
   },
   {
     "name": "Sunnyside Park",
-    "address": "DuPage County, IL",
-    "lat": 41.9414072,
-    "lon": -88.0625165,
+    "address": "1120 Coolidge Ave, Wheaton, IL 60189",
+    "lat": 41.8535,
+    "lon": -88.1018,
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": null
+    "operator": null,
+    "toddlerFavorite": true
   },
   {
     "name": "Sunrise Park",
@@ -14536,14 +14541,26 @@
     "operator": null
   },
   {
-    "name": "Toohey Park",
-    "address": "DuPage County, IL",
-    "lat": 41.8359076,
-    "lon": -88.1275535,
+    "name": "Toohey Park (Toohey Park & Safety City)",
+    "address": "1900 Orchard Rd, Wheaton, IL 60189",
+    "lat": 41.8568,
+    "lon": -88.1080,
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": "Wheaton Park District"
+    "operator": "Wheaton Park District",
+    "toddlerFavorite": true
+  },
+  {
+    "name": "Triangle Park",
+    "address": "1100 Crescent St, Wheaton, IL 60187",
+    "lat": 41.8593,
+    "lon": -88.0977,
+    "entry": "free",
+    "parking": "parking available",
+    "website": null,
+    "operator": "Wheaton Park District",
+    "toddlerFavorite": true
   },
   {
     "name": "Tower Green",
@@ -15027,13 +15044,14 @@
   },
   {
     "name": "W. W. Stevens Park",
-    "address": "DuPage County, IL",
-    "lat": 41.8697926,
-    "lon": -88.1176143,
+    "address": "525 Western Ave, Wheaton, IL 60187",
+    "lat": 41.8585,
+    "lon": -88.1150,
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": "Wheaton Park District"
+    "operator": "Wheaton Park District",
+    "toddlerFavorite": true
   },
   {
     "name": "Waiola Park",
