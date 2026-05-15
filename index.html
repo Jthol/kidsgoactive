@@ -215,13 +215,21 @@
   </div>
   <div class="map-controls">
     <div>
-      <button class="map-filter-btn active" data-filter="all">All</button>
-      <button class="map-filter-btn" data-filter="free">Free</button>
-      <button class="map-filter-btn" data-filter="paid">Paid</button>
+      <button class="map-filter-btn entry-filter-btn active" data-filter="all">All</button>
+      <button class="map-filter-btn entry-filter-btn" data-filter="free">Free</button>
+      <button class="map-filter-btn entry-filter-btn" data-filter="paid">Paid</button>
     </div>
-    <select id="town-filter" class="map-select" aria-label="Filter parks by town">
-      <option value="all">All towns</option>
-    </select>
+    <div>
+      <button class="map-filter-btn region-filter-btn active" data-region="all">All regions</button>
+      <button class="map-filter-btn region-filter-btn" data-region="NE">NE</button>
+      <button class="map-filter-btn region-filter-btn" data-region="NW">NW</button>
+      <button class="map-filter-btn region-filter-btn" data-region="SE">SE</button>
+      <button class="map-filter-btn region-filter-btn" data-region="SW">SW</button>
+    </div>
+    <div>
+      <button class="map-filter-btn kid-filter-btn active" data-filter="all">All parks</button>
+      <button class="map-filter-btn kid-filter-btn" data-filter="favorites">Kid favorites</button>
+    </div>
     <span class="map-status">Loading park data…</span>
   </div>
   <div id="park-map"></div>
@@ -331,14 +339,31 @@
 
   const listContainer = document.querySelector('.park-list');
   const statusLabel = document.querySelector('.map-status');
-  const filterButtons = document.querySelectorAll('.map-filter-btn');
-  const townSelect = document.getElementById('town-filter');
+  const filterButtons = document.querySelectorAll('.entry-filter-btn');
+  const regionButtons = document.querySelectorAll('.region-filter-btn');
+  const kidFilterButtons = document.querySelectorAll('.kid-filter-btn');
   let parkMarkers = [];
   let parks = [];
   let activeEntryFilter = 'all';
-  let activeTownFilter = 'all';
+  let activeRegionFilter = 'all';
+  let activeKidFilter = 'all';
 
   const entryColor = (entry) => entry === 'paid' ? '#D23F4F' : '#1D9E75';
+
+  const regionLabel = (code) => {
+    if (code === 'all') return 'all regions';
+    if (code === 'NE') return 'North East';
+    if (code === 'NW') return 'North West';
+    if (code === 'SE') return 'South East';
+    if (code === 'SW') return 'South West';
+    return code;
+  };
+
+  const parseRegion = (lat, lon, centerLat, centerLon) => {
+    const vertical = lat >= centerLat ? 'N' : 'S';
+    const horizontal = lon >= centerLon ? 'E' : 'W';
+    return `${vertical}${horizontal}`;
+  };
 
   const parseTownFromAddress = (address, operator) => {
     const townFromAddress = () => {
@@ -376,19 +401,13 @@
     marker.bindPopup(`
       <strong>${park.name}</strong><br />
       ${park.displayAddress}<br />
-      <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em><br />
-      <small>${park.town}</small>
+      <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em>
+      ${park.kidFavorite ? '<div style="margin-top:4px;color:#1D9E75;font-weight:600;">Kid favorite</div>' : ''}
+      <br /><small>${park.town}</small>
     `);
 
     marker.addTo(parkMap);
     parkMarkers.push({ marker, park });
-  };
-
-  const updateTownOptions = (towns) => {
-    const options = ['all', ...towns].map((town) => {
-      return `<option value="${town}">${town === 'all' ? 'All towns' : town}</option>`;
-    }).join('');
-    townSelect.innerHTML = options;
   };
 
   const updateParkList = (visibleParks) => {
@@ -396,17 +415,19 @@
       return `
         <div class="park-list-item">
           <strong>${park.name}</strong>
-          <div class="park-status">${park.displayAddress} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'} · ${park.town}</div>
+          ${park.kidFavorite ? '<span class="park-entry-tag">Kid favorite</span>' : ''}
+          <div class="park-status">${park.displayAddress} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'} · ${regionLabel(park.region)}</div>
         </div>
       `;
     }).join('');
   };
 
-  const applyFilter = (entryFilter, townFilter) => {
+  const applyFilter = (entryFilter, regionFilter, kidFilter) => {
     const visibleParks = parks.filter((park) => {
       const entryMatch = entryFilter === 'all' || park.entry === entryFilter;
-      const townMatch = townFilter === 'all' || park.town === townFilter;
-      return entryMatch && townMatch;
+      const regionMatch = regionFilter === 'all' || park.region === regionFilter;
+      const kidMatch = kidFilter === 'all' || park.kidFavorite;
+      return entryMatch && regionMatch && kidMatch;
     });
 
     parkMarkers.forEach(({ marker, park }) => {
@@ -416,8 +437,9 @@
     });
 
     updateParkList(visibleParks.slice(0, 20));
+    const kidLabel = kidFilter === 'all' ? 'all parks' : 'kid favorites';
     statusLabel.textContent = visibleParks.length
-      ? `Showing ${visibleParks.length} parks (${entryFilter === 'all' ? 'all' : entryFilter}, ${townFilter === 'all' ? 'all towns' : townFilter})`
+      ? `Showing ${visibleParks.length} parks (${entryFilter === 'all' ? 'all' : entryFilter}, ${regionLabel(regionFilter)}, ${kidLabel})`
       : 'No parks match this filter.';
 
     const visibleMarkers = parkMarkers.filter(({ park }) => visibleParks.includes(park)).map(({ marker }) => marker);
@@ -436,10 +458,16 @@
       parks.forEach((park) => {
         park.town = parseTownFromAddress(park.address, park.operator);
         park.displayAddress = displayAddress(park);
+        park.kidFavorite = park.kidFavorite === true;
       });
 
-      const uniqueTowns = [...new Set(parks.map((park) => park.town).filter((town) => town && town !== 'Unknown'))].sort((a, b) => a.localeCompare(b));
-      updateTownOptions(uniqueTowns);
+      const lats = parks.map((park) => park.lat);
+      const lons = parks.map((park) => park.lon);
+      const centerLat = (Math.min(...lats) + Math.max(...lats)) / 2;
+      const centerLon = (Math.min(...lons) + Math.max(...lons)) / 2;
+      parks.forEach((park) => {
+        park.region = parseRegion(park.lat, park.lon, centerLat, centerLon);
+      });
 
       if (!parks.length) {
         statusLabel.textContent = 'No park locations available in the data file.';
@@ -447,7 +475,7 @@
       }
 
       parks.forEach(createParkMarker);
-      applyFilter(activeEntryFilter, activeTownFilter);
+      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
     } catch (error) {
       console.error(error);
       statusLabel.textContent = 'Failed to load park data. Run this page from a local server to allow file loading.';
@@ -459,13 +487,26 @@
       filterButtons.forEach((btn) => btn.classList.remove('active'));
       button.classList.add('active');
       activeEntryFilter = button.dataset.filter;
-      applyFilter(activeEntryFilter, activeTownFilter);
+      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
     });
   });
 
-  townSelect.addEventListener('change', () => {
-    activeTownFilter = townSelect.value;
-    applyFilter(activeEntryFilter, activeTownFilter);
+  regionButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      regionButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+      activeRegionFilter = button.dataset.region;
+      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
+    });
+  });
+
+  kidFilterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      kidFilterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+      activeKidFilter = button.dataset.filter;
+      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
+    });
   });
 
   loadParkData();

@@ -1670,6 +1670,28 @@
     "operator": "Naperville Park District"
   },
   {
+    "name": "95th Street Community Plaza",
+    "address": "3109 Cedar Glade Drive, Naperville, IL, 60564",
+    "lat": 41.7085,
+    "lon": -88.1753,
+    "entry": "free",
+    "parking": "parking available",
+    "website": null,
+    "operator": "Naperville Park District",
+    "kidFavorite": true
+  },
+  {
+    "name": "Bison's Bluff Nature Playground",
+    "address": "1111 E Schaumburg Road, Naperville, IL, 60565",
+    "lat": 41.7965,
+    "lon": -88.1155,
+    "entry": "free",
+    "parking": "parking available",
+    "website": null,
+    "operator": "Naperville Park District",
+    "kidFavorite": true
+  },
+  {
     "name": "Brook Park",
     "address": "DuPage County, IL",
     "lat": 41.7995772,
@@ -2097,7 +2119,8 @@
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": null
+    "operator": null,
+    "kidFavorite": true
   },
   {
     "name": "Camp Pine Woods",
@@ -6077,7 +6100,8 @@
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": null
+    "operator": null,
+    "kidFavorite": true
   },
   {
     "name": "Hasen Park",
@@ -9077,7 +9101,8 @@
     "entry": "free",
     "parking": "parking available",
     "website": null,
-    "operator": "Glen Ellyn Park District"
+    "operator": "Glen Ellyn Park District",
+    "kidFavorite": true
   },
   {
     "name": "Mather Park",
