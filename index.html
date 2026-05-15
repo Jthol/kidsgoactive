@@ -419,7 +419,12 @@
     parkMarkers.push({ marker, park });
   };
 
-  const updateParkList = (visibleParks) => {
+  const updateParkList = (visibleParks, kidFilter) => {
+    if (kidFilter !== 'favorites') {
+      listContainer.innerHTML = '';
+      return;
+    }
+
     listContainer.innerHTML = visibleParks.map((park) => {
       return `
         <div class="park-list-item">
@@ -445,7 +450,7 @@
       else parkMap.removeLayer(marker);
     });
 
-    updateParkList(visibleParks.slice(0, 20));
+    updateParkList(visibleParks.slice(0, 20), kidFilter);
     const kidLabel = kidFilter === 'all' ? 'all parks' : 'kid favorites';
     statusLabel.textContent = visibleParks.length
       ? `Showing ${visibleParks.length} parks (${entryFilter === 'all' ? 'all' : entryFilter}, ${regionLabel(regionFilter)}, ${kidLabel})`
