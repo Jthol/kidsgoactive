@@ -339,12 +339,28 @@
 
   const entryColor = (entry) => entry === 'paid' ? '#D23F4F' : '#1D9E75';
 
-  const parseTownFromAddress = (address) => {
-    if (!address) return 'Unknown';
-    const parts = address.split(',').map((part) => part.trim()).filter(Boolean);
-    const candidate = parts.find((part) => !/dupage county|illinois|il|county/i.test(part));
-    if (candidate) return candidate;
-    return parts[0] || 'Unknown';
+  const parseTownFromAddress = (address, operator) => {
+    const townFromAddress = () => {
+      if (!address) return null;
+      const parts = address.split(',').map((part) => part.trim()).filter(Boolean);
+      const candidate = parts.find((part) => !/dupage county|illinois|il|county/i.test(part));
+      return candidate || parts[0] || null;
+    };
+
+    const townFromOperator = () => {
+      if (!operator) return null;
+      const town = operator.replace(/\s*(Park District|Parks District|Park Dist\.?|Parks & Recreation|Parks and Recreation|Parks Department|Parks and Rec|Parks|Department of Parks|Recreation Department)$/i, '').trim();
+      return town || null;
+    };
+
+    return townFromAddress() || townFromOperator() || 'Unknown';
+  };
+
+  const displayAddress = (park) => {
+    if (/^DuPage County,?\s*IL$/i.test(park.address || '') && park.town && park.town !== 'Unknown') {
+      return `${park.town}, IL`;
+    }
+    return park.address || park.town || 'Unknown address';
   };
 
   const createParkMarker = (park) => {
@@ -358,7 +374,7 @@
 
     marker.bindPopup(`
       <strong>${park.name}</strong><br />
-      ${park.address}<br />
+      ${park.displayAddress}<br />
       <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em><br />
       <small>${park.town}</small>
     `);
@@ -379,7 +395,7 @@
       return `
         <div class="park-list-item">
           <strong>${park.name}</strong>
-          <div class="park-status">${park.address} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'} · ${park.town}</div>
+          <div class="park-status">${park.displayAddress} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'} · ${park.town}</div>
         </div>
       `;
     }).join('');
@@ -416,9 +432,12 @@
       if (!response.ok) throw new Error('Unable to load park data.');
       parks = await response.json();
       parks = parks.filter((park) => park.lat && park.lon && park.entry);
-      parks.forEach((park) => { park.town = parseTownFromAddress(park.address); });
+      parks.forEach((park) => {
+        park.town = parseTownFromAddress(park.address, park.operator);
+        park.displayAddress = displayAddress(park);
+      });
 
-      const uniqueTowns = [...new Set(parks.map((park) => park.town))].sort((a, b) => a.localeCompare(b));
+      const uniqueTowns = [...new Set(parks.map((park) => park.town).filter((town) => town && town !== 'Unknown'))].sort((a, b) => a.localeCompare(b));
       updateTownOptions(uniqueTowns);
 
       if (!parks.length) {
