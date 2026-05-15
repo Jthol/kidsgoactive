@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KidsGoActive – Find active things for your kids to do</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.10.0/dist/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --font-sans: 'DM Sans', sans-serif;
+      --green: #1D9E75;
+      --green-light: #E1F5EE;
+      --green-dark: #0F6E56;
+      --bg: #ffffff;
+      --bg-secondary: #f5f5f3;
+      --text: #1a1a18;
+      --text-secondary: #666662;
+      --text-tertiary: #999994;
+      --border: rgba(0,0,0,0.12);
+      --border-secondary: rgba(0,0,0,0.22);
+      --radius-md: 8px;
+      --radius-lg: 12px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1a1a18;
+        --bg-secondary: #242422;
+        --text: #f0f0ee;
+        --text-secondary: #aaaaaa;
+        --text-tertiary: #666662;
+        --border: rgba(255,255,255,0.12);
+        --border-secondary: rgba(255,255,255,0.22);
+        --green-light: #085041;
+      }
+    }
+
+    body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 0.5px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100; }
+    .logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .logo-mark { width: 32px; height: 32px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+    .logo-text { font-size: 17px; font-weight: 500; color: var(--text); }
+    .logo-text span { color: var(--green); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--green); color: #fff; border: none; padding: 7px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
+    .nav-cta:hover { opacity: 0.88; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--text); font-size: 22px; }
+
+    /* HERO */
+    .hero { padding: 4rem 2rem 3rem; text-align: center; background: var(--bg-secondary); border-bottom: 0.5px solid var(--border); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--green-light); color: var(--green-dark); font-size: 12px; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.25rem; }
+    .hero h1 { font-size: 40px; font-weight: 500; line-height: 1.15; margin-bottom: 0.75rem; max-width: 540px; margin-left: auto; margin-right: auto; }
+    .hero h1 em { color: var(--green); font-style: normal; }
+    .hero p { font-size: 16px; color: var(--text-secondary); max-width: 420px; margin: 0 auto 2rem; }
+    .hero-search { display: flex; gap: 8px; max-width: 440px; margin: 0 auto; }
+    .hero-search input { flex: 1; padding: 11px 14px; border: 0.5px solid var(--border-secondary); border-radius: var(--radius-md); background: var(--bg); color: var(--text); font-size: 14px; font-family: var(--font-sans); outline: none; transition: border-color 0.15s; }
+    .hero-search input:focus { border-color: var(--green); }
+    .hero-search button { background: var(--green); color: #fff; border: none; padding: 11px 20px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; font-family: var(--font-sans); transition: opacity 0.15s; }
+    .hero-search button:hover { opacity: 0.88; }
+
+    /* SECTIONS */
+    .section { padding: 2.5rem 2rem; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+    .section-title { font-size: 18px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+    .section-title i { color: var(--green); font-size: 20px; }
+    .see-all { font-size: 13px; color: var(--green); text-decoration: none; display: flex; align-items: center; gap: 4px; }
+    .see-all:hover { opacity: 0.8; }
+    .divider { height: 0.5px; background: var(--border); margin: 0 2rem; }
+
+    /* ACTIVITY CARDS */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; transition: border-color 0.15s; cursor: pointer; }
+    .card:hover { border-color: var(--border-secondary); }
+    .card-tag { font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 12px; display: inline-block; margin-bottom: 0.6rem; }
+    .tag-sport { background: #E1F5EE; color: #0F6E56; }
+    .tag-art   { background: #EEEDFE; color: #3C3489; }
+    .tag-nature{ background: #EAF3DE; color: #27500A; }
+    .tag-stem  { background: #E6F1FB; color: #0C447C; }
+    .card h3 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+    .card-age { font-size: 12px; color: var(--text-tertiary); }
+    .card-meta { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; margin-top: 7px; }
+    .card-meta i { font-size: 13px; }
+
+    /* CALENDAR */
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 400px; }
+    .cal-day-name { text-align: center; font-size: 11px; color: var(--text-tertiary); padding: 4px 0; font-weight: 500; }
+    .cal-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: var(--radius-md); font-size: 13px; color: var(--text-secondary); cursor: pointer; position: relative; transition: background 0.1s; }
+    .cal-day:hover { background: var(--bg-secondary); }
+    .cal-day.has-event { font-weight: 500; color: var(--text); }
+    .cal-day.has-event::after { content: ''; width: 4px; height: 4px; background: var(--green); border-radius: 50%; position: absolute; bottom: 4px; }
+    .cal-day.today { background: var(--green); color: #fff; font-weight: 500; }
+    .cal-day.today::after { background: #fff; }
+    .cal-day.muted { color: var(--text-tertiary); }
+
+    /* MAP */
+    .map-placeholder { background: var(--bg-secondary); border: 0.5px solid var(--border); border-radius: var(--radius-lg); height: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: var(--text-secondary); font-size: 14px; }
+    .map-placeholder i { font-size: 36px; color: var(--green); }
+
+    /* PARK LIST */
+    .park-list { display: flex; flex-direction: column; gap: 10px; margin-top: 1rem; }
+    .park-item { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); cursor: pointer; transition: border-color 0.15s; }
+    .park-item:hover { border-color: var(--border-secondary); }
+    .park-icon { width: 36px; height: 36px; background: var(--green-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .park-icon i { color: var(--green); font-size: 18px; }
+    .park-info { flex: 1; min-width: 0; }
+    .park-name { font-size: 14px; font-weight: 500; }
+    .park-dist { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+    .park-tags { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+    .park-tag { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: var(--bg-secondary); color: var(--text-secondary); }
+
+    /* FOOTER */
+    footer { padding: 1.5rem 2rem; text-align: center; font-size: 12px; color: var(--text-tertiary); border-top: 0.5px solid var(--border); margin-top: 1rem; }
+    footer a { color: var(--text-tertiary); text-decoration: none; }
+    footer a:hover { color: var(--text-secondary); }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      nav { padding: 1rem; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: block; }
+      .hero { padding: 2.5rem 1rem 2rem; }
+      .hero h1 { font-size: 28px; }
+      .hero-search { flex-direction: column; }
+      .section { padding: 1.5rem 1rem; }
+      .divider { margin: 0 1rem; }
+      .cards { grid-template-columns: 1fr 1fr; }
+      footer { padding: 1.25rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-mark"><i class="ti ti-run" aria-hidden="true"></i></div>
+    <span class="logo-text">Kids<span>Go</span>Active</span>
+  </a>
+  <div class="nav-links">
+    <a href="#events">Calendar</a>
+    <a href="#parks">Parks</a>
+    <a href="#">Activities</a>
+    <a href="#">For parents</a>
+  </div>
+  <button class="nav-cta">Add an event</button>
+  <button class="nav-hamburger" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge"><i class="ti ti-map-pin" aria-hidden="true"></i> Lansing area</div>
+  <h1>Find <em>active things</em> for your kids to do today</h1>
+  <p>Browse local parks, sports, classes, and events — all in one place.</p>
+  <div class="hero-search">
+    <input type="text" placeholder="Activity, park, or age group…" />
+    <button>Search</button>
+  </div>
+</div>
+
+<div class="section" id="events">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-calendar-event" aria-hidden="true"></i> This week's events</div>
+    <a href="#" class="see-all">See all <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="card-tag tag-sport">Sport</span>
+      <h3>Youth Soccer Clinic</h3>
+      <div class="card-age">Ages 6–10</div>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sat, May 17 · 9am</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Patriarche Park</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-art">Arts</span>
+      <h3>Outdoor Painting Class</h3>
+      <div class="card-age">Ages 5–12</div>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sun, May 18 · 11am</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Fenner Nature Center</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Nature</span>
+      <h3>Bug &amp; Butterfly Walk</h3>
+      <div class="card-age">Ages 4–9</div>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sat, May 17 · 10am</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Hawk Island Park</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-stem">STEM</span>
+      <h3>Kids' Coding Camp</h3>
+      <div class="card-age">Ages 8–13</div>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Mon–Fri, May 19–23</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Library of Michigan</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> May 2026</div>
+  </div>
+  <div class="cal-grid">
+    <div class="cal-day-name">Su</div><div class="cal-day-name">Mo</div><div class="cal-day-name">Tu</div><div class="cal-day-name">We</div><div class="cal-day-name">Th</div><div class="cal-day-name">Fr</div><div class="cal-day-name">Sa</div>
+    <div class="cal-day muted">27</div><div class="cal-day muted">28</div><div class="cal-day muted">29</div><div class="cal-day muted">30</div><div class="cal-day muted">1</div><div class="cal-day has-event">2</div><div class="cal-day has-event">3</div>
+    <div class="cal-day has-event">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day has-event">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day has-event">10</div>
+    <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day today">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day has-event">17</div>
+    <div class="cal-day has-event">18</div><div class="cal-day has-event">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day has-event">23</div><div class="cal-day">24</div>
+    <div class="cal-day">25</div><div class="cal-day has-event">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day has-event">31</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section" id="parks">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-map" aria-hidden="true"></i> Parks near you</div>
+    <a href="#" class="see-all">View map <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+  </div>
+  <div class="map-placeholder">
+    <i class="ti ti-map-2" aria-hidden="true"></i>
+    <span>Interactive park map</span>
+    <span style="font-size: 12px; color: var(--text-tertiary);">Coming soon — connect a map provider to enable</span>
+  </div>
+  <div class="park-list">
+    <div class="park-item">
+      <div class="park-icon"><i class="ti ti-trees" aria-hidden="true"></i></div>
+      <div class="park-info">
+        <div class="park-name">Hawk Island County Park</div>
+        <div class="park-dist">2.1 mi away · 3 upcoming events</div>
+        <div class="park-tags"><span class="park-tag">Splash pad</span><span class="park-tag">Trails</span><span class="park-tag">Playground</span></div>
+      </div>
+      <i class="ti ti-chevron-right" style="color: var(--text-tertiary); font-size: 16px;" aria-hidden="true"></i>
+    </div>
+    <div class="park-item">
+      <div class="park-icon"><i class="ti ti-trees" aria-hidden="true"></i></div>
+      <div class="park-info">
+        <div class="park-name">Patriarche Park</div>
+        <div class="park-dist">3.4 mi away · 1 upcoming event</div>
+        <div class="park-tags"><span class="park-tag">Soccer fields</span><span class="park-tag">Picnic</span></div>
+      </div>
+      <i class="ti ti-chevron-right" style="color: var(--text-tertiary); font-size: 16px;" aria-hidden="true"></i>
+    </div>
+    <div class="park-item">
+      <div class="park-icon"><i class="ti ti-trees" aria-hidden="true"></i></div>
+      <div class="park-info">
+        <div class="park-name">Fenner Nature Center</div>
+        <div class="park-dist">4.0 mi away · 2 upcoming events</div>
+        <div class="park-tags"><span class="park-tag">Nature trails</span><span class="park-tag">Programs</span></div>
+      </div>
+      <i class="ti ti-chevron-right" style="color: var(--text-tertiary); font-size: 16px;" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2026 KidsGoActive · Lansing, MI ·
+  <a href="#">Submit an event</a> ·
+  <a href="#">Contact</a>
+</footer>
+
+</body>
+</html>
