@@ -323,9 +323,10 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script>
   const parkMap = L.map('park-map', { scrollWheelZoom: false }).setView([41.88, -88.09], 10);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    maxZoom: 18
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &mdash; CartoDB',
+    subdomains: 'abcd',
+    maxZoom: 19
   }).addTo(parkMap);
 
   const listContainer = document.querySelector('.park-list');
