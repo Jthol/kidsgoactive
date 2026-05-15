@@ -60,12 +60,7 @@
     .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--green-light); color: var(--green-dark); font-size: 12px; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.25rem; }
     .hero h1 { font-size: 40px; font-weight: 500; line-height: 1.15; margin-bottom: 0.75rem; max-width: 540px; margin-left: auto; margin-right: auto; }
     .hero h1 em { color: var(--green); font-style: normal; }
-    .hero p { font-size: 16px; color: var(--text-secondary); max-width: 420px; margin: 0 auto 2rem; }
-    .hero-search { display: flex; gap: 8px; max-width: 440px; margin: 0 auto; }
-    .hero-search input { flex: 1; padding: 11px 14px; border: 0.5px solid var(--border-secondary); border-radius: var(--radius-md); background: var(--bg); color: var(--text); font-size: 14px; font-family: var(--font-sans); outline: none; transition: border-color 0.15s; }
-    .hero-search input:focus { border-color: var(--green); }
-    .hero-search button { background: var(--green); color: #fff; border: none; padding: 11px 20px; border-radius: var(--radius-md); font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; font-family: var(--font-sans); transition: opacity 0.15s; }
-    .hero-search button:hover { opacity: 0.88; }
+    .hero p { font-size: 16px; color: var(--text-secondary); max-width: 420px; margin: 0 auto; }
 
     /* SECTIONS */
     .section { padding: 2.5rem 2rem; }
@@ -159,6 +154,7 @@
   <div class="nav-links">
     <a href="#events">Calendar</a>
     <a href="#parks">Parks</a>
+    <a href="#markets">Markets</a>
     <a href="#">Activities</a>
     <a href="#">For parents</a>
   </div>
@@ -167,13 +163,9 @@
 </nav>
 
 <div class="hero">
-  <div class="hero-badge"><i class="ti ti-map-pin" aria-hidden="true"></i> Lansing area</div>
+  <div class="hero-badge"><i class="ti ti-map-pin" aria-hidden="true"></i> DuPage County</div>
   <h1>Find <em>active things</em> for your kids to do today</h1>
   <p>Browse local parks, sports, classes, and events — all in one place.</p>
-  <div class="hero-search">
-    <input type="text" placeholder="Activity, park, or age group…" />
-    <button>Search</button>
-  </div>
 </div>
 
 <div class="section" id="events">
@@ -215,22 +207,6 @@
 
 <div class="divider"></div>
 
-<div class="section">
-  <div class="section-header">
-    <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> May 2026</div>
-  </div>
-  <div class="cal-grid">
-    <div class="cal-day-name">Su</div><div class="cal-day-name">Mo</div><div class="cal-day-name">Tu</div><div class="cal-day-name">We</div><div class="cal-day-name">Th</div><div class="cal-day-name">Fr</div><div class="cal-day-name">Sa</div>
-    <div class="cal-day muted">27</div><div class="cal-day muted">28</div><div class="cal-day muted">29</div><div class="cal-day muted">30</div><div class="cal-day muted">1</div><div class="cal-day has-event">2</div><div class="cal-day has-event">3</div>
-    <div class="cal-day has-event">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day has-event">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day has-event">10</div>
-    <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day today">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day has-event">17</div>
-    <div class="cal-day has-event">18</div><div class="cal-day has-event">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day has-event">23</div><div class="cal-day">24</div>
-    <div class="cal-day">25</div><div class="cal-day has-event">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day has-event">31</div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
 <div class="section" id="parks">
   <div class="section-header">
     <div class="section-title"><i class="ti ti-map" aria-hidden="true"></i> Parks near you</div>
@@ -248,8 +224,94 @@
   <div class="park-list"></div>
 </div>
 
+<div class="divider"></div>
+
+<div class="section" id="markets">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-basket" aria-hidden="true"></i> Farmers Markets</div>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Downtown Downers Grove Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, May–Oct · 7:30am–12:30pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Main Street Train Station</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Elmhurst Farmers Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Oct · 7am–1pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> 149 W. Brush Hill Road</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Elmhurst French Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sundays, Jun–Sep · 9am–2pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> 180 W. Park Avenue</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Lisle French Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, May–Oct · 8am–1pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Prairie Walk Pond</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Lombard Farmers Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Tuesdays, May–Oct · 3pm–7pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Park Ave &amp; St. Charles Rd</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Naper Settlement Farmers Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Tuesdays, Jul–Sep · 3pm–7pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> <a href="https://www.discoverdupage.com/listing/naper-settlement/101/" target="_blank" style="color:var(--green);text-decoration:none;">Naper Settlement</a></div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Roselle French Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Aug · 4pm–9pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Petal Porch</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Street Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Every other Thu, Jun–Aug · 4pm–9pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> <a href="https://www.discoverdupage.com/listing/the-promenade-bolingbrook/419/" target="_blank" style="color:var(--green);text-decoration:none;">The Promenade Bolingbrook</a></div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Wheaton French Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, Apr–Oct · 8am–2pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> "W" Pavilion</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Market</span>
+      <h3>Winfield Farmers Market</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Oct · 7am–1pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Geneva &amp; County Farm Roads</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> May 2026</div>
+  </div>
+  <div class="cal-grid">
+    <div class="cal-day-name">Su</div><div class="cal-day-name">Mo</div><div class="cal-day-name">Tu</div><div class="cal-day-name">We</div><div class="cal-day-name">Th</div><div class="cal-day-name">Fr</div><div class="cal-day-name">Sa</div>
+    <div class="cal-day muted">27</div><div class="cal-day muted">28</div><div class="cal-day muted">29</div><div class="cal-day muted">30</div><div class="cal-day muted">1</div><div class="cal-day has-event">2</div><div class="cal-day has-event">3</div>
+    <div class="cal-day has-event">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day has-event">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day has-event">10</div>
+    <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day today">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day has-event">17</div>
+    <div class="cal-day has-event">18</div><div class="cal-day has-event">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day has-event">23</div><div class="cal-day">24</div>
+    <div class="cal-day">25</div><div class="cal-day has-event">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day has-event">31</div>
+  </div>
+</div>
+
 <footer>
-  © 2026 KidsGoActive · Lansing, MI ·
+  © 2026 KidsGoActive · DuPage County, IL ·
   <a href="#">Submit an event</a> ·
   <a href="#">Contact</a>
 </footer>
