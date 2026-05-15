@@ -100,6 +100,7 @@
     .map-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
     .map-filter-btn { border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 999px; padding: 9px 16px; font-size: 13px; cursor: pointer; transition: background 0.15s, color 0.15s, border-color 0.15s; }
     .map-filter-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
+    .map-select { border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: var(--radius-lg); padding: 10px 12px; font-size: 13px; cursor: pointer; min-width: 160px; }
     #park-map { width: 100%; min-height: 360px; border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
     .park-entry-tag { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 8px; font-size: 11px; background: var(--bg-secondary); color: var(--text-secondary); margin-left: 0.5rem; }
     .park-list-item { display: flex; flex-direction: column; gap: 6px; padding: 14px; background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); transition: border-color 0.15s; }
@@ -218,6 +219,9 @@
       <button class="map-filter-btn" data-filter="free">Free</button>
       <button class="map-filter-btn" data-filter="paid">Paid</button>
     </div>
+    <select id="town-filter" class="map-select" aria-label="Filter parks by town">
+      <option value="all">All towns</option>
+    </select>
     <span class="map-status">Loading park data…</span>
   </div>
   <div id="park-map"></div>
@@ -327,10 +331,21 @@
   const listContainer = document.querySelector('.park-list');
   const statusLabel = document.querySelector('.map-status');
   const filterButtons = document.querySelectorAll('.map-filter-btn');
+  const townSelect = document.getElementById('town-filter');
   let parkMarkers = [];
   let parks = [];
+  let activeEntryFilter = 'all';
+  let activeTownFilter = 'all';
 
   const entryColor = (entry) => entry === 'paid' ? '#D23F4F' : '#1D9E75';
+
+  const parseTownFromAddress = (address) => {
+    if (!address) return 'Unknown';
+    const parts = address.split(',').map((part) => part.trim()).filter(Boolean);
+    const candidate = parts.find((part) => !/dupage county|illinois|il|county/i.test(part));
+    if (candidate) return candidate;
+    return parts[0] || 'Unknown';
+  };
 
   const createParkMarker = (park) => {
     const marker = L.circleMarker([park.lat, park.lon], {
@@ -344,11 +359,19 @@
     marker.bindPopup(`
       <strong>${park.name}</strong><br />
       ${park.address}<br />
-      <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em>
+      <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em><br />
+      <small>${park.town}</small>
     `);
 
     marker.addTo(parkMap);
     parkMarkers.push({ marker, park });
+  };
+
+  const updateTownOptions = (towns) => {
+    const options = ['all', ...towns].map((town) => {
+      return `<option value="${town}">${town === 'all' ? 'All towns' : town}</option>`;
+    }).join('');
+    townSelect.innerHTML = options;
   };
 
   const updateParkList = (visibleParks) => {
@@ -356,28 +379,33 @@
       return `
         <div class="park-list-item">
           <strong>${park.name}</strong>
-          <div class="park-status">${park.address} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</div>
+          <div class="park-status">${park.address} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'} · ${park.town}</div>
         </div>
       `;
     }).join('');
   };
 
-  const applyFilter = (filter) => {
+  const applyFilter = (entryFilter, townFilter) => {
     const visibleParks = parks.filter((park) => {
-      if (filter === 'all') return true;
-      return park.entry === filter;
+      const entryMatch = entryFilter === 'all' || park.entry === entryFilter;
+      const townMatch = townFilter === 'all' || park.town === townFilter;
+      return entryMatch && townMatch;
     });
 
     parkMarkers.forEach(({ marker, park }) => {
-      const visible = filter === 'all' || park.entry === filter;
+      const visible = visibleParks.includes(park);
       if (visible) marker.addTo(parkMap);
       else parkMap.removeLayer(marker);
     });
 
     updateParkList(visibleParks.slice(0, 20));
-    statusLabel.textContent = `Showing ${visibleParks.length} parks (${filter === 'all' ? 'all' : filter})`;
-    if (visibleParks.length && filter !== 'all') {
-      const bounds = L.featureGroup(parkMarkers.filter(({ park }) => visibleParks.includes(park)).map(({ marker }) => marker)).getBounds();
+    statusLabel.textContent = visibleParks.length
+      ? `Showing ${visibleParks.length} parks (${entryFilter === 'all' ? 'all' : entryFilter}, ${townFilter === 'all' ? 'all towns' : townFilter})`
+      : 'No parks match this filter.';
+
+    const visibleMarkers = parkMarkers.filter(({ park }) => visibleParks.includes(park)).map(({ marker }) => marker);
+    if (visibleMarkers.length) {
+      const bounds = L.featureGroup(visibleMarkers).getBounds();
       if (bounds.isValid()) parkMap.fitBounds(bounds, { padding: [40, 40] });
     }
   };
@@ -388,6 +416,10 @@
       if (!response.ok) throw new Error('Unable to load park data.');
       parks = await response.json();
       parks = parks.filter((park) => park.lat && park.lon && park.entry);
+      parks.forEach((park) => { park.town = parseTownFromAddress(park.address); });
+
+      const uniqueTowns = [...new Set(parks.map((park) => park.town))].sort((a, b) => a.localeCompare(b));
+      updateTownOptions(uniqueTowns);
 
       if (!parks.length) {
         statusLabel.textContent = 'No park locations available in the data file.';
@@ -395,9 +427,7 @@
       }
 
       parks.forEach(createParkMarker);
-      applyFilter('all');
-      const bounds = L.featureGroup(parkMarkers.map((item) => item.marker)).getBounds();
-      if (bounds.isValid()) parkMap.fitBounds(bounds, { padding: [40, 40] });
+      applyFilter(activeEntryFilter, activeTownFilter);
     } catch (error) {
       console.error(error);
       statusLabel.textContent = 'Failed to load park data. Run this page from a local server to allow file loading.';
@@ -408,8 +438,14 @@
     button.addEventListener('click', () => {
       filterButtons.forEach((btn) => btn.classList.remove('active'));
       button.classList.add('active');
-      applyFilter(button.dataset.filter);
+      activeEntryFilter = button.dataset.filter;
+      applyFilter(activeEntryFilter, activeTownFilter);
     });
+  });
+
+  townSelect.addEventListener('change', () => {
+    activeTownFilter = townSelect.value;
+    applyFilter(activeEntryFilter, activeTownFilter);
   });
 
   loadParkData();
