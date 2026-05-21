@@ -80,6 +80,14 @@
     .tag-art   { background: #EEEDFE; color: #3C3489; }
     .tag-nature{ background: #EAF3DE; color: #27500A; }
     .tag-stem  { background: #E6F1FB; color: #0C447C; }
+
+    .market-chart { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .market-day { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem; min-height: 220px; display: flex; flex-direction: column; }
+    .market-day-header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.9rem; font-size: 0.95rem; font-weight: 600; }
+    .market-day-header span { color: var(--text-secondary); font-size: 0.84rem; }
+    .market-day .card { margin-bottom: 0.8rem; cursor: default; }
+    .market-day .card:last-child { margin-bottom: 0; }
+    .market-day-empty { color: var(--text-secondary); font-size: 0.95rem; margin-top: auto; }
     .card h3 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
     .card-age { font-size: 12px; color: var(--text-tertiary); }
     .card-meta { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; margin-top: 7px; }
@@ -178,11 +186,10 @@
     <div class="section-title"><i class="ti ti-map" aria-hidden="true"></i> Parks near you</div>
     <a href="#" class="see-all">View map <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
   </div>
-  <div class="map-controls">
+    <div class="map-controls">
     <div>
       <button class="map-filter-btn entry-filter-btn active" data-filter="all">All</button>
       <button class="map-filter-btn entry-filter-btn" data-filter="free">Free</button>
-      <button class="map-filter-btn entry-filter-btn" data-filter="paid">Paid</button>
     </div>
     <div>
       <button class="map-filter-btn region-filter-btn active" data-region="all">All regions</button>
@@ -208,66 +215,89 @@
   <div class="section-header">
     <div class="section-title"><i class="ti ti-basket" aria-hidden="true"></i> Farmers Markets</div>
   </div>
-  <div class="cards">
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Downtown Downers Grove Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, May–Oct · 7:30am–12:30pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Main Street Train Station</div>
+  <div class="market-chart">
+    <div class="market-day">
+      <div class="market-day-header"><span>Sunday</span><span>1 market</span></div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Elmhurst French Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sundays, Jun–Sep · 9am–2pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> 180 W. Park Avenue</div>
+      </div>
     </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Elmhurst Farmers Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Oct · 7am–1pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> 149 W. Brush Hill Road</div>
+    <div class="market-day">
+      <div class="market-day-header"><span>Monday</span><span>0 markets</span></div>
+      <div class="market-day-empty">No regular farmers markets listed yet.</div>
     </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Elmhurst French Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Sundays, Jun–Sep · 9am–2pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> 180 W. Park Avenue</div>
+    <div class="market-day">
+      <div class="market-day-header"><span>Tuesday</span><span>2 markets</span></div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Lombard Farmers Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Tuesdays, May–Oct · 3pm–7pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Park Ave &amp; St. Charles Rd</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Naper Settlement Farmers Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Tuesdays, Jul–Sep · 3pm–7pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> <a href="https://www.discoverdupage.com/listing/naper-settlement/101/" target="_blank" style="color:var(--green);text-decoration:none;">Naper Settlement</a></div>
+      </div>
     </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Lisle French Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, May–Oct · 8am–1pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Prairie Walk Pond</div>
+    <div class="market-day">
+      <div class="market-day-header"><span>Wednesday</span><span>3 markets</span></div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Elmhurst Farmers Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Oct · 7am–1pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> 149 W. Brush Hill Road</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Roselle French Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Aug · 4pm–9pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Petal Porch</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Winfield Farmers Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Oct · 7am–1pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Geneva &amp; County Farm Roads</div>
+      </div>
     </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Lombard Farmers Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Tuesdays, May–Oct · 3pm–7pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Park Ave &amp; St. Charles Rd</div>
+    <div class="market-day">
+      <div class="market-day-header"><span>Thursday</span><span>1 market</span></div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Street Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Every other Thu, Jun–Aug · 4pm–9pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> <a href="https://www.discoverdupage.com/listing/the-promenade-bolingbrook/419/" target="_blank" style="color:var(--green);text-decoration:none;">The Promenade Bolingbrook</a></div>
+      </div>
     </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Naper Settlement Farmers Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Tuesdays, Jul–Sep · 3pm–7pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> <a href="https://www.discoverdupage.com/listing/naper-settlement/101/" target="_blank" style="color:var(--green);text-decoration:none;">Naper Settlement</a></div>
+    <div class="market-day">
+      <div class="market-day-header"><span>Friday</span><span>0 markets</span></div>
+      <div class="market-day-empty">No regular farmers markets listed yet.</div>
     </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Roselle French Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Aug · 4pm–9pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Petal Porch</div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Street Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Every other Thu, Jun–Aug · 4pm–9pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> <a href="https://www.discoverdupage.com/listing/the-promenade-bolingbrook/419/" target="_blank" style="color:var(--green);text-decoration:none;">The Promenade Bolingbrook</a></div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Wheaton French Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, Apr–Oct · 8am–2pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> "W" Pavilion</div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Market</span>
-      <h3>Winfield Farmers Market</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Wednesdays, Jun–Oct · 7am–1pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Geneva &amp; County Farm Roads</div>
+    <div class="market-day">
+      <div class="market-day-header"><span>Saturday</span><span>3 markets</span></div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Downtown Downers Grove Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, May–Oct · 7:30am–12:30pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Main Street Train Station</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Lisle French Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, May–Oct · 8am–1pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Prairie Walk Pond</div>
+      </div>
+      <div class="card">
+        <span class="card-tag tag-nature">Market</span>
+        <h3>Wheaton French Market</h3>
+        <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays, Apr–Oct · 8am–2pm</div>
+        <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> "W" Pavilion</div>
+      </div>
     </div>
   </div>
 </div>
@@ -305,16 +335,15 @@
 
 <div class="section">
   <div class="section-header">
-    <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> May 2026</div>
+    <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> Calendar</div>
   </div>
-  <div class="cal-grid">
-    <div class="cal-day-name">Su</div><div class="cal-day-name">Mo</div><div class="cal-day-name">Tu</div><div class="cal-day-name">We</div><div class="cal-day-name">Th</div><div class="cal-day-name">Fr</div><div class="cal-day-name">Sa</div>
-    <div class="cal-day muted">27</div><div class="cal-day muted">28</div><div class="cal-day muted">29</div><div class="cal-day muted">30</div><div class="cal-day muted">1</div><div class="cal-day has-event">2</div><div class="cal-day has-event">3</div>
-    <div class="cal-day has-event">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day has-event">7</div><div class="cal-day">8</div><div class="cal-day">9</div><div class="cal-day has-event">10</div>
-    <div class="cal-day">11</div><div class="cal-day">12</div><div class="cal-day">13</div><div class="cal-day today">14</div><div class="cal-day">15</div><div class="cal-day">16</div><div class="cal-day has-event">17</div>
-    <div class="cal-day has-event">18</div><div class="cal-day has-event">19</div><div class="cal-day">20</div><div class="cal-day">21</div><div class="cal-day">22</div><div class="cal-day has-event">23</div><div class="cal-day">24</div>
-    <div class="cal-day">25</div><div class="cal-day has-event">26</div><div class="cal-day">27</div><div class="cal-day">28</div><div class="cal-day">29</div><div class="cal-day">30</div><div class="cal-day has-event">31</div>
+  <div class="cal-controls" style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+    <button id="cal-prev" class="small-btn">&lt;</button>
+    <strong id="cal-month-label"></strong>
+    <button id="cal-next" class="small-btn">&gt;</button>
+    <div style="margin-left:auto;color:var(--text-secondary);font-size:0.9rem;">Browse: Jun 2025 — Dec 2026</div>
   </div>
+  <div id="calendar" class="cal-grid" aria-live="polite"></div>
 </div>
 
 <div class="divider"></div>
@@ -383,6 +412,26 @@
   </div>
 </div>
 
+<div class="divider"></div>
+
+<div class="section" id="weekly-events">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-clock" aria-hidden="true"></i> Weekly Events</div>
+  </div>
+  <div class="map-controls" style="gap:8px;margin-bottom:8px;">
+    <div>
+      <button class="map-filter-btn age-filter-btn active" data-age="all">All ages</button>
+      <button class="map-filter-btn age-filter-btn" data-age="infant">Infant</button>
+      <button class="map-filter-btn age-filter-btn" data-age="1-2">1-2 yrs</button>
+      <button class="map-filter-btn age-filter-btn" data-age="3-4">3-4 yrs</button>
+      <button class="map-filter-btn age-filter-btn" data-age="5-6">5-6 yrs</button>
+      <button class="map-filter-btn age-filter-btn" data-age="big">Big Kids</button>
+    </div>
+    <div style="margin-left:auto;color: var(--text-secondary);font-size:0.95rem;" class="weekly-events-count">Showing 0 events</div>
+  </div>
+  <div class="cards weekly-events-list"></div>
+</div>
+
 <footer>
   © 2026 KidsGoActive · DuPage County, IL ·
   <a href="#">Submit an event</a> ·
@@ -403,13 +452,16 @@
   const filterButtons = document.querySelectorAll('.entry-filter-btn');
   const regionButtons = document.querySelectorAll('.region-filter-btn');
   const kidFilterButtons = document.querySelectorAll('.kid-filter-btn');
+  const weeklyEventsList = document.querySelector('.weekly-events-list');
+  const weeklyEventsCount = document.querySelector('.weekly-events-count');
   let parkMarkers = [];
   let parks = [];
   let activeEntryFilter = 'all';
   let activeRegionFilter = 'all';
   let activeKidFilter = 'all';
+  let activeAgeFilter = 'all';
 
-  const entryColor = (entry) => entry === 'paid' ? '#D23F4F' : '#1D9E75';
+  const entryColor = () => '#1D9E75';
 
   const regionLabel = (code) => {
     if (code === 'all') return 'all regions';
@@ -450,6 +502,83 @@
     return park.address || park.town || 'Unknown address';
   };
 
+  const weeklyEvents = [
+    {
+      title: 'Wheaton Library Story Time',
+      schedule: 'Wednesdays · 10am',
+      location: 'Wheaton Public Library',
+      ages: ['infant', '1-2', '3-4'],
+      description: 'Story time with songs, books, and movement for infants, toddlers, and preschoolers.'
+    },
+    {
+      title: 'Lisle Music & Movement',
+      schedule: 'Thursdays · 10:30am',
+      location: 'Lisle Library Plaza',
+      ages: ['infant', '1-2', '3-4'],
+      description: 'Sing-alongs, rhythm games, and instruments for little ones and caregivers.'
+    },
+    {
+      title: 'Naperville Little Learners Playgroup',
+      schedule: 'Mondays · 9:30am',
+      location: 'Heritage Circle Park, Naperville',
+      ages: ['1-2', '3-4'],
+      description: 'Free outdoor playgroup with sensory stations, bubbles, and social play.'
+    },
+    {
+      title: 'Cantigny Tot Time',
+      schedule: 'Fridays · 11am',
+      location: 'Cantigny Park Playground',
+      ages: ['1-2', '3-4', '5-6'],
+      description: 'A relaxed family-friendly gathering with lawn games, story corners, and splash pad time.'
+    },
+    {
+      title: 'Chicago STEM Club Kids',
+      schedule: 'Tuesdays · 4pm',
+      location: 'Naperville Children’s Museum',
+      ages: ['5-6', 'big'],
+      description: 'Hands-on science and maker activities for early elementary and older kids.'
+    },
+    {
+      title: 'Big Kids Adventure Workshop',
+      schedule: 'Saturdays · 10am',
+      location: 'Wheaton Family YMCA',
+      ages: ['5-6', 'big'],
+      description: 'Active games, teamwork challenges, and skill-building for school-age kids.'
+    }
+  ];
+
+  const ageDisplay = {
+    infant: 'Infant',
+    '1-2': '1-2 yrs',
+    '3-4': '3-4 yrs',
+    '5-6': '5-6 yrs',
+    big: 'Big Kids'
+  };
+
+  const renderWeeklyEvents = (filter = 'all') => {
+    if (!weeklyEventsList) return;
+    const visibleEvents = weeklyEvents.filter((event) => filter === 'all' || event.ages.includes(filter));
+    if (weeklyEventsCount) {
+      weeklyEventsCount.textContent = `Showing ${visibleEvents.length} event${visibleEvents.length === 1 ? '' : 's'}`;
+    }
+    weeklyEventsList.innerHTML = visibleEvents.length
+      ? visibleEvents.map((event) => `
+        <div class="card">
+          <h3>${event.title}</h3>
+          <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> ${event.schedule}</div>
+          <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> ${event.location}</div>
+          <p>${event.description}</p>
+          <p style="color: var(--text-secondary);font-size:0.95rem;">Ages: ${event.ages.map((age) => ageDisplay[age] || age).join(', ')}</p>
+        </div>
+      `).join('')
+      : `
+        <div class="card">
+          <h3>No weekly events match this age group yet</h3>
+          <p style="color: var(--text-secondary);">Try a different age group or check back soon for more story times, classes, and workshops.</p>
+        </div>
+      `;
+  };
+
   const createParkMarker = (park) => {
     const marker = L.circleMarker([park.lat, park.lon], {
       radius: 8,
@@ -462,7 +591,7 @@
     marker.bindPopup(`
       <strong>${park.name}</strong><br />
       ${park.displayAddress}<br />
-      <em>${park.entry === 'paid' ? 'Paid entry' : 'Free entry'}</em>
+      <em>Free entry</em>
       ${park.kidFavorite ? '<div style="margin-top:4px;color:#1D9E75;font-weight:600;">Kid favorite</div>' : ''}
       ${park.toddlerFavorite ? '<div style="margin-top:4px;color:#1D9E75;font-weight:600;">Toddler favorite</div>' : ''}
       <br /><small>${park.town}</small>
@@ -485,7 +614,7 @@
         <div class="park-list-item">
           <strong>${park.name}</strong>
           ${tag ? `<span class="park-entry-tag">${tag}</span>` : ''}
-          <div class="park-status">${park.displayAddress} · ${park.entry === 'paid' ? 'Paid entry' : 'Free entry'} · ${regionLabel(park.region)}</div>
+          <div class="park-status">${park.displayAddress} · Free entry · ${regionLabel(park.region)}</div>
         </div>
       `;
     }).join('');
@@ -525,7 +654,8 @@
       const response = await fetch('dupage-parks.json');
       if (!response.ok) throw new Error('Unable to load park data.');
       parks = await response.json();
-      parks = parks.filter((park) => park.lat && park.lon && park.entry);
+      // Exclude any paid-entry parks from the map view
+      parks = parks.filter((park) => park.lat && park.lon && park.entry && park.entry !== 'paid');
       parks.forEach((park) => {
         park.town = parseTownFromAddress(park.address, park.operator);
         park.displayAddress = displayAddress(park);
@@ -581,6 +711,18 @@
     });
   });
 
+  const ageFilterButtons = document.querySelectorAll('.age-filter-btn');
+  ageFilterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      ageFilterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+      activeAgeFilter = button.dataset.age;
+      renderWeeklyEvents(activeAgeFilter);
+    });
+  });
+
+  renderWeeklyEvents(activeAgeFilter);
+
   document.addEventListener('click', async (event) => {
     const button = event.target.closest('.directions-copy-btn');
     if (!button) return;
@@ -595,6 +737,98 @@
       window.prompt('Copy this address:', address);
     }
   });
+
+  // --- Calendar rendering and event markers (June 2025 → Dec 2026)
+  (function(){
+    const festivalMap = {
+      '2025-06-05': ['Cream of Wheaton (day 1)'],
+      '2025-06-06': ['Cream of Wheaton'],
+      '2025-06-07': ['Cream of Wheaton'],
+      '2025-06-08': ['Cream of Wheaton'],
+      '2025-06-13': ['Scottish Festival & Highland Games'],
+      '2025-06-14': ['Scottish Festival & Highland Games'],
+      '2025-07-04': ['Naperville Fourth of July Celebration'],
+      '2025-07-10': ['Taste of Westmont'],
+      '2025-07-11': ['Taste of Westmont'],
+      '2025-07-12': ['Taste of Westmont'],
+      '2025-07-13': ['Taste of Westmont'],
+      '2025-07-16': ['Glendale Heights Fest'],
+      '2025-07-17': ['Glendale Heights Fest'],
+      '2025-07-18': ['Glendale Heights Fest'],
+      '2025-07-19': ['Glendale Heights Fest'],
+      '2025-07-20': ['Glendale Heights Fest'],
+      '2025-08-03': ['Cantigny Summer Concerts / Wheaton Brew & Seltzer (family)'],
+      '2025-08-10': ['Cantigny Summer Concerts'],
+      '2025-08-17': ['Cantigny Summer Concerts'],
+      '2025-08-24': ['Cantigny Summer Concerts'],
+      '2025-08-31': ['Cantigny Summer Concerts'],
+      '2025-08-29': ['Naperville Last Fling'],
+      '2025-08-30': ['Naperville Last Fling'],
+      '2025-08-31': ['Naperville Last Fling'],
+      '2025-09-01': ['Naperville Last Fling']
+    };
+
+    const calMin = new Date(2025,5,1); // June 2025
+    const calMax = new Date(2026,11,1); // Dec 2026
+    let calCurrent = new Date();
+    if (calCurrent < calMin) calCurrent = calMin;
+    if (calCurrent > calMax) calCurrent = calMax;
+
+    const calPrev = document.getElementById('cal-prev');
+    const calNext = document.getElementById('cal-next');
+    const calLabel = document.getElementById('cal-month-label');
+    const calGrid = document.getElementById('calendar');
+
+    function formatDateKey(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,'0');
+      const day = String(d.getDate()).padStart(2,'0');
+      return `${y}-${m}-${day}`;
+    }
+
+    function renderCalendar(date) {
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      calLabel.textContent = date.toLocaleString(undefined,{month:'long', year:'numeric'});
+      calGrid.innerHTML = '';
+      const names = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+      names.forEach(n => { const el = document.createElement('div'); el.className='cal-day-name'; el.textContent=n; calGrid.appendChild(el); });
+      const first = new Date(year, month, 1);
+      const start = new Date(first);
+      start.setDate(first.getDate() - first.getDay());
+      for (let i=0;i<42;i++){
+        const d = new Date(start);
+        d.setDate(start.getDate()+i);
+        const cell = document.createElement('div');
+        cell.className = 'cal-day';
+        if (d.getMonth() !== month) cell.classList.add('muted');
+        const key = formatDateKey(d);
+        if (festivalMap[key]) {
+          cell.classList.add('has-event');
+          cell.title = festivalMap[key].join('; ');
+          cell.innerHTML = `${d.getDate()}<div style="font-size:0.75rem;color:var(--text-secondary)">${festivalMap[key].slice(0,1).join('')}</div>`;
+        } else {
+          cell.textContent = d.getDate();
+        }
+        calGrid.appendChild(cell);
+      }
+      const prevMonth = new Date(year, month-1, 1);
+      const nextMonth = new Date(year, month+1, 1);
+      calPrev.disabled = prevMonth < calMin;
+      calNext.disabled = nextMonth > calMax;
+    }
+
+    calPrev.addEventListener('click', () => {
+      calCurrent = new Date(calCurrent.getFullYear(), calCurrent.getMonth()-1, 1);
+      renderCalendar(calCurrent);
+    });
+    calNext.addEventListener('click', () => {
+      calCurrent = new Date(calCurrent.getFullYear(), calCurrent.getMonth()+1, 1);
+      renderCalendar(calCurrent);
+    });
+
+    renderCalendar(calCurrent);
+  })();
 
   loadParkData();
 </script>
