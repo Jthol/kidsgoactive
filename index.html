@@ -54,6 +54,10 @@
     .nav-cta { background: var(--green); color: #fff; border: none; padding: 7px 16px; border-radius: var(--radius-md); font-size: 13px; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
     .nav-cta:hover { opacity: 0.88; }
     .nav-hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--text); font-size: 22px; }
+    .mobile-menu { display: none; flex-direction: column; gap: 0.5rem; background: var(--bg); padding: 1rem 1rem 0.75rem; position: absolute; top: 100%; right: 0; left: 0; border-top: 1px solid var(--border); z-index: 10; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; color: var(--text); font-size: 14px; padding: 0.85rem 0.5rem; border-radius: var(--radius-md); transition: background 0.15s; }
+    .mobile-menu a:hover { background: var(--bg-secondary); }
 
     /* HERO */
     .hero { padding: 4rem 2rem 3rem; text-align: center; background: var(--bg-secondary); border-bottom: 0.5px solid var(--border); }
@@ -81,6 +85,8 @@
     .tag-nature{ background: #EAF3DE; color: #27500A; }
     .tag-stem  { background: #E6F1FB; color: #0C447C; }
 
+    .market-weekdays { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    .market-weekdays span { text-align: center; font-size: 12px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.06em; }
     .market-chart { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
     .market-day { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); display: flex; flex-direction: column; overflow: hidden; }
     .market-day-header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.95rem 1rem; background: var(--bg-secondary); border-bottom: 0.5px solid var(--border); font-size: 0.96rem; font-weight: 700; color: var(--text); }
@@ -156,6 +162,7 @@
       nav { padding: 1rem; }
       .nav-links, .nav-cta { display: none; }
       .nav-hamburger { display: block; }
+      .mobile-menu { position: static; border-top: none; padding: 0.75rem 0; }
       .hero { padding: 2.5rem 1rem 2rem; }
       .hero h1 { font-size: 28px; }
       .hero-search { flex-direction: column; }
@@ -183,6 +190,14 @@
   </div>
   <a class="nav-cta" href="#coming-soon">Add an event</a>
   <button class="nav-hamburger" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <a href="#parks">Parks</a>
+    <a href="#markets">Markets</a>
+    <a href="#events">Fests for the Family</a>
+    <a href="#weekly-events">Weekly Events</a>
+    <a href="#water-activities">Water Activities</a>
+    <a href="#calendar-section">Calendar</a>
+  </div>
 </nav>
 
 <div class="hero">
@@ -222,6 +237,15 @@
 <div class="section" id="markets">
   <div class="section-header">
     <div class="section-title"><i class="ti ti-basket" aria-hidden="true"></i> Farmers Markets</div>
+  </div>
+  <div class="market-weekdays">
+    <span>Sun</span>
+    <span>Mon</span>
+    <span>Tue</span>
+    <span>Wed</span>
+    <span>Thu</span>
+    <span>Fri</span>
+    <span>Sat</span>
   </div>
   <div class="market-chart">
     <div class="market-day">
@@ -692,16 +716,22 @@
     }
   };
 
-  regionButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      regionButtons.forEach((btn) => btn.classList.remove('active'));
-      button.classList.add('active');
-      activeRegionFilter = button.dataset.region;
-      applyFilter('all', activeRegionFilter, activeKidFilter);
+  const mobileToggle = document.querySelector('.nav-hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      mobileMenu.setAttribute('aria-hidden', String(!open));
     });
-  });
+    mobileMenu.addEventListener('click', (event) => {
+      const link = event.target.closest('a');
+      if (!link) return;
+      mobileMenu.classList.remove('open');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+    });
+  }
 
-  kidFilterButtons.forEach((button) => {
+  regionButtons.forEach((button) => {
     button.addEventListener('click', () => {
       kidFilterButtons.forEach((btn) => btn.classList.remove('active'));
       button.classList.add('active');
