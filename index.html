@@ -82,16 +82,27 @@
     .tag-stem  { background: #E6F1FB; color: #0C447C; }
 
     .market-chart { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .market-day { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 1rem; min-height: 220px; display: flex; flex-direction: column; }
-    .market-day-header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin-bottom: 0.9rem; font-size: 0.95rem; font-weight: 600; }
-    .market-day-header span { color: var(--text-secondary); font-size: 0.84rem; }
-    .market-day .card { margin-bottom: 0.8rem; cursor: default; }
+    .market-day { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius-lg); display: flex; flex-direction: column; overflow: hidden; }
+    .market-day-header { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.95rem 1rem; background: var(--bg-secondary); border-bottom: 0.5px solid var(--border); font-size: 0.96rem; font-weight: 700; color: var(--text); }
+    .market-day-header span { display: inline-block; color: var(--text-secondary); font-size: 0.82rem; }
+    .market-day .card { margin: 0; cursor: default; border-top: 0.5px solid var(--border); border-radius: 0; }
+    .market-day .card:first-of-type { border-top: none; }
     .market-day .card:last-child { margin-bottom: 0; }
-    .market-day-empty { color: var(--text-secondary); font-size: 0.95rem; margin-top: auto; }
-    .card h3 { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+    .market-day-empty { color: var(--text-secondary); font-size: 0.95rem; padding: 1rem; margin-top: auto; }
+    .card { background: transparent; border: none; padding: 1rem; }
+    .card:hover { border-color: transparent; }
+    .card h3 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
     .card-age { font-size: 12px; color: var(--text-tertiary); }
     .card-meta { font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; gap: 5px; margin-top: 7px; }
     .card-meta i { font-size: 13px; }
+
+    @media (max-width: 640px) {
+      .market-chart { grid-template-columns: 1fr; }
+      .market-day { min-height: auto; }
+      .market-day-header { flex-wrap: wrap; justify-content: flex-start; padding: 0.85rem 0.95rem; }
+      .market-day-header span { width: 100%; margin-top: 4px; }
+      .market-day-empty { padding: 0.9rem; }
+    }
 
     /* CALENDAR */
     .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 400px; }
