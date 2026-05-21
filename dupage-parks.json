@@ -16412,5 +16412,38 @@
     "parking": "parking available",
     "website": null,
     "operator": null
+  },
+  {
+    "name": "Plunkett Park",
+    "address": "186 West Avenue, Elmhurst, IL 60126",
+    "lat": 41.9133639,
+    "lon": -87.9442165,
+    "entry": "free",
+    "parking": "parking available",
+    "website": null,
+    "operator": null,
+    "toddlerFavorite": true
+  },
+  {
+    "name": "Phillips Park",
+    "address": "1000 Ray Moses Drive, Aurora, IL 60505",
+    "lat": 41.7355520,
+    "lon": -88.2961910,
+    "entry": "free",
+    "parking": "parking available",
+    "website": null,
+    "operator": null,
+    "toddlerFavorite": true
+  },
+  {
+    "name": "Washington Park",
+    "address": "835 Prairie Avenue, Downers Grove, IL 60515",
+    "lat": 41.8001287,
+    "lon": -88.0055005,
+    "entry": "free",
+    "parking": "parking available",
+    "website": null,
+    "operator": null,
+    "toddlerFavorite": true
   }
 ]
