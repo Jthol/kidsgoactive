@@ -163,13 +163,14 @@
     <span class="logo-text">Kids<span>Go</span>Active</span>
   </a>
   <div class="nav-links">
-    <a href="#events">Calendar</a>
     <a href="#parks">Parks</a>
     <a href="#markets">Markets</a>
-    <a href="#">Activities</a>
-    <a href="#">For parents</a>
+    <a href="#events">Fests for the Family</a>
+    <a href="#weekly-events">Weekly Events</a>
+    <a href="#water-activities">Water Activities</a>
+    <a href="#calendar-section">Calendar</a>
   </div>
-  <button class="nav-cta">Add an event</button>
+  <a class="nav-cta" href="#coming-soon">Add an event</a>
   <button class="nav-hamburger" aria-label="Menu"><i class="ti ti-menu-2"></i></button>
 </nav>
 
@@ -187,10 +188,6 @@
     <a href="#" class="see-all">View map <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
   </div>
     <div class="map-controls">
-    <div>
-      <button class="map-filter-btn entry-filter-btn active" data-filter="all">All</button>
-      <button class="map-filter-btn entry-filter-btn" data-filter="free">Free</button>
-    </div>
     <div>
       <button class="map-filter-btn region-filter-btn active" data-region="all">All regions</button>
       <button class="map-filter-btn region-filter-btn" data-region="NE">NE</button>
@@ -302,55 +299,10 @@
   </div>
 </div>
 
-<div class="divider"></div>
-
-<div class="section" id="water-activities">
-  <div class="section-header">
-    <div class="section-title"><i class="ti ti-droplet" aria-hidden="true"></i> Water Activities</div>
-    <a href="#" class="see-all">Explore more <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
-  </div>
-  <div class="cards">
-    <div class="card">
-      <span class="card-tag tag-nature">Water</span>
-      <h3>Spray Pad Splash</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Open daily · 10am–7pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Lisle Community Park</div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Water</span>
-      <h3>Lakefront Paddle Rentals</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Fri–Sun · 9am–5pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Ackerman Park</div>
-    </div>
-    <div class="card">
-      <span class="card-tag tag-nature">Water</span>
-      <h3>Family Beach Day</h3>
-      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays · 11am–4pm</div>
-      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Hidden Lake Park</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<div class="section">
-  <div class="section-header">
-    <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> Calendar</div>
-  </div>
-  <div class="cal-controls" style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-    <button id="cal-prev" class="small-btn">&lt;</button>
-    <strong id="cal-month-label"></strong>
-    <button id="cal-next" class="small-btn">&gt;</button>
-    <div style="margin-left:auto;color:var(--text-secondary);font-size:0.9rem;">Browse: Jun 2025 — Dec 2026</div>
-  </div>
-  <div id="calendar" class="cal-grid" aria-live="polite"></div>
-</div>
-
-<div class="divider"></div>
 
 <div class="section" id="events">
   <div class="section-header">
-    <div class="section-title"><i class="ti ti-calendar-event" aria-hidden="true"></i> Family events calendar</div>
+    <div class="section-title"><i class="ti ti-calendar-event" aria-hidden="true"></i> Fests for the Family</div>
   </div>
   <div class="cards">
     <div class="card">
@@ -432,6 +384,54 @@
   <div class="cards weekly-events-list"></div>
 </div>
 
+<div class="divider"></div>
+
+<div class="section" id="water-activities">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-droplet" aria-hidden="true"></i> Water Activities</div>
+    <a href="#" class="see-all">Explore more <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <span class="card-tag tag-nature">Water</span>
+      <h3>Spray Pad Splash</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Open daily · 10am–7pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Lisle Community Park</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Water</span>
+      <h3>Lakefront Paddle Rentals</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Fri–Sun · 9am–5pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Ackerman Park</div>
+    </div>
+    <div class="card">
+      <span class="card-tag tag-nature">Water</span>
+      <h3>Family Beach Day</h3>
+      <div class="card-meta"><i class="ti ti-calendar" aria-hidden="true"></i> Saturdays · 11am–4pm</div>
+      <div class="card-meta"><i class="ti ti-map-pin" aria-hidden="true"></i> Hidden Lake Park</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section" id="calendar-section">
+  <div class="section-header">
+    <div class="section-title"><i class="ti ti-calendar" aria-hidden="true"></i> Calendar</div>
+  </div>
+  <div class="cal-controls" style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+    <button id="cal-prev" class="small-btn">&lt;</button>
+    <strong id="cal-month-label"></strong>
+    <button id="cal-next" class="small-btn">&gt;</button>
+    <div style="margin-left:auto;color:var(--text-secondary);font-size:0.9rem;">Browse: Jun 2025 — Dec 2026</div>
+  </div>
+  <div id="calendar" class="cal-grid" aria-live="polite"></div>
+  <div id="coming-soon" style="margin-top:1rem; padding:1rem; background: var(--bg); border:0.5px solid var(--border); border-radius:var(--radius-lg);">
+    <h3>Coming Soon</h3>
+    <p>Suggest events or showcase your event.</p>
+  </div>
+</div>
+
 <footer>
   © 2026 KidsGoActive · DuPage County, IL ·
   <a href="#">Submit an event</a> ·
@@ -449,14 +449,12 @@
 
   const listContainer = document.querySelector('.park-list');
   const statusLabel = document.querySelector('.map-status');
-  const filterButtons = document.querySelectorAll('.entry-filter-btn');
   const regionButtons = document.querySelectorAll('.region-filter-btn');
   const kidFilterButtons = document.querySelectorAll('.kid-filter-btn');
   const weeklyEventsList = document.querySelector('.weekly-events-list');
   const weeklyEventsCount = document.querySelector('.weekly-events-count');
   let parkMarkers = [];
   let parks = [];
-  let activeEntryFilter = 'all';
   let activeRegionFilter = 'all';
   let activeKidFilter = 'all';
   let activeAgeFilter = 'all';
@@ -620,14 +618,13 @@
     }).join('');
   };
 
-  const applyFilter = (entryFilter, regionFilter, kidFilter) => {
+  const applyFilter = (_entryFilter, regionFilter, kidFilter) => {
     const visibleParks = parks.filter((park) => {
-      const entryMatch = entryFilter === 'all' || park.entry === entryFilter;
       const regionMatch = regionFilter === 'all' || park.region === regionFilter;
       const favoriteMatch = kidFilter === 'all'
         || (kidFilter === 'favorites' && Boolean(park.kidFavorite))
         || (kidFilter === 'toddler' && Boolean(park.toddlerFavorite));
-      return entryMatch && regionMatch && favoriteMatch;
+      return regionMatch && favoriteMatch;
     });
 
     parkMarkers.forEach(({ marker, park }) => {
@@ -639,7 +636,7 @@
     updateParkList(visibleParks.slice(0, 20), kidFilter);
     const kidLabel = kidFilter === 'all' ? 'all parks' : kidFilter === 'favorites' ? 'kid favorites' : 'toddler favorites';
     statusLabel.textContent = visibleParks.length
-      ? `Showing ${visibleParks.length} parks (${entryFilter === 'all' ? 'all' : entryFilter}, ${regionLabel(regionFilter)}, ${kidLabel})`
+      ? `Showing ${visibleParks.length} parks (${regionLabel(regionFilter)}, ${kidLabel})`
       : 'No parks match this filter.';
 
     const visibleMarkers = parkMarkers.filter(({ park }) => visibleParks.includes(park)).map(({ marker }) => marker);
@@ -677,28 +674,19 @@
       }
 
       parks.forEach(createParkMarker);
-      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
+      applyFilter('all', activeRegionFilter, activeKidFilter);
     } catch (error) {
       console.error(error);
       statusLabel.textContent = 'Failed to load park data. Run this page from a local server to allow file loading.';
     }
   };
 
-  filterButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      filterButtons.forEach((btn) => btn.classList.remove('active'));
-      button.classList.add('active');
-      activeEntryFilter = button.dataset.filter;
-      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
-    });
-  });
-
   regionButtons.forEach((button) => {
     button.addEventListener('click', () => {
       regionButtons.forEach((btn) => btn.classList.remove('active'));
       button.classList.add('active');
       activeRegionFilter = button.dataset.region;
-      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
+      applyFilter('all', activeRegionFilter, activeKidFilter);
     });
   });
 
@@ -707,7 +695,7 @@
       kidFilterButtons.forEach((btn) => btn.classList.remove('active'));
       button.classList.add('active');
       activeKidFilter = button.dataset.filter;
-      applyFilter(activeEntryFilter, activeRegionFilter, activeKidFilter);
+      applyFilter('all', activeRegionFilter, activeKidFilter);
     });
   });
 
